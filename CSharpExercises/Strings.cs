@@ -5,32 +5,39 @@ namespace CSharpExercises
 {
     public class Strings
     {
-        public static string SubstringTo(string input, string target)
+        public static string SubstringTo(string input, string end)
         {
-            return input.Substring(0, input.IndexOf(target) + 1);
+            // SubstringTo(string s, string target) eg. SubstringTo("ndianfq*(0YPO&", "*") = "ndianfq*"
+            return input.Substring(0, input.IndexOf(end) + 1);
         }
 
-        public static string SubstringUntil(string input, string target)
+        public static string SubstringUntil(string input, string end)
         {
-            return input.Substring(0, input.IndexOf(target));
+            // SubstringUntil(string s, string target) eg. SubstringUntil("ndianfq*(0YPO&", "*") = "ndianfq"
+            return input.Substring(0, input.IndexOf(end));
         }
 
-        public static string SubstringFrom(string input, string target)
+        public static string SubstringFrom(string input, string start, int offset)
         {
-            return input.Substring(input.IndexOf(target));
+            // SubstringFrom(string s, string start) eg. SubstringFrom("ndianfq*(0YPO&", "*") = "*(0YPO&"
+            return input.Substring(input.IndexOf(start, offset));
         }
 
         public static string SubstringBetween(string input, string start, string end)
         {
-            return input.Substring(input.IndexOf(start), input.IndexOf(end) - input.IndexOf(start) + 1);
+            // SubstringBetween(string s, string start, string end) eg. SubstringBetween("ndianfq*(0YPO&", "*", "0") = "*(0"
+            var startIndex = input.IndexOf(start);
+            var length = input.IndexOf(end) - input.IndexOf(start) + 1;
+            return input.Substring(startIndex, length);
         }
 
         public static string[] AllSlicesBetween(string input, string start, string end)
         {
             // string[] AllSlicesBetween(string input, string start, string end) 
             // eg. AllSlicesBetween("abcdefgabefg", "b", "e") == ["bcde","be"]
+            // try to re-use some of previous methods to make it more readable
             var stringList = new List<string>();
-            var firstInstance = "";
+            var result = "";
             var offset = 0;
             while (true)
             {
@@ -38,8 +45,8 @@ namespace CSharpExercises
                 var endIndex = input.IndexOf(end, offset);
                 if (startIndex == -1 || endIndex == - 1) break;
                 var length =  endIndex - startIndex + 1;
-                firstInstance = input.Substring(input.IndexOf(start, offset), length);
-                stringList.Add(firstInstance);
+                result = input.Substring(input.IndexOf(SubstringFrom(input, start, offset)), length);
+                stringList.Add(result);
                 offset = endIndex + 1;
             }
             var inputArray = stringList.ToArray();
@@ -58,13 +65,12 @@ namespace CSharpExercises
         }
         // "abcdefg".IndexOf("e", 1) = 4
         // "abcdefg".Substring(0, "abcdefg".IndexOf("e", 2))
-        /* Steps:
+        /* 
+        Steps:
         "abcdefg".Substring(a, b)
         a = 0
         b = "abcdefg".IndexOf("e",2)  = 4
-        
         "abcdefg".Substring(0, 4) = "abcd"
-
         */
         // a = 1, b = 2, c = 3
         // (a + b) * (b + c) = 3 * 5 = 15
@@ -78,31 +84,5 @@ namespace CSharpExercises
         // = (220 + 5)/5
         // = 225/5
         // = 45
-
-// hit => hmommyt
-// hitit => hmommytmommyt
-// hititit => hmommytmommytmommyt
-public string momifier(string input) {
-    var reuslt = ReplaceFirst(input, "i", "mommy");
-    while(reuslt.Contains("i")) {
-        reuslt = ReplaceFirst(reuslt, "i", "mommy");
-    }
-    if(reuslt.Contains("i")) {
-        reuslt = ReplaceFirst(reuslt, "i", "mommy");
-    }
-    return reuslt;
-}
-
-public string ReplaceFirst(string text, string search, string replace)
-{
-  int pos = text.IndexOf(search);
-  if (pos < 0)
-  {
-    return text;
-  }
-  return text.Substring(0, pos) + replace + text.Substring(pos + search.Length);
-}
-    }
-
-    
+    }  
 }

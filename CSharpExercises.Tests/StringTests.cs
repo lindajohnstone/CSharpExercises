@@ -32,7 +32,8 @@ namespace CSharpExercises.Tests
             // SubstringFrom(string s, string start) eg. SubstringFrom("ndianfq*(0YPO&", "*") = "*(0YPO&"
             var expected = "*(0YPO&";
             var target = "*";
-            var result = Strings.SubstringFrom("ndianfq*(0YPO&", target);
+            var offset = 0;
+            var result = Strings.SubstringFrom("ndianfq*(0YPO&", target, offset);
             Assert.Equal(expected, result);
         }
 
@@ -63,7 +64,7 @@ namespace CSharpExercises.Tests
 
         [Theory]
         [InlineData("abcdefgabefg", "b", "e", new[] { "bcde", "be" })]
-        //[InlineData("abcdefg", "b", "e", new[] { "bcde" })]
+        [InlineData("abcdefg", "b", "e", new[] { "bcde" })]
         public void AllSlicesBetween_method_(string input, string start, string end, string[] expected)
         {
             var result = Strings.AllSlicesBetween(input, start, end);
@@ -90,15 +91,14 @@ namespace CSharpExercises.Tests
             Assert.Equal(expected, result); 
         }
 
-        [Fact]
-        public void GreedySubstring_method()
+        [Theory]
+        [InlineData("abcdefgabcdefg", "b", "d", "bcdefgabcd")]
+        [InlineData("abcdefgabcdefg", "d", "f", "defgabcdef")]
+        public void GreedySubstring_method(string input, string start, string end, string expected)
         {
             // string GreedySubstringBetween(string s, string start, string end) 
             // eg. GreedySubstringBetween("abcdefgabcdefg", "b", "d") == "bcdefgabcd"
-            var input = "abcdefgabcdefg";
-            var expected = "bcdefgabcd";
-            var start = "b";
-            var end = "d";
+            
             var result = Strings.GreedySubstringBetween(input, start, end);
             Assert.Equal(expected, result);
         }
