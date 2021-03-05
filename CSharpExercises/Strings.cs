@@ -58,8 +58,7 @@ namespace CSharpExercises
             // string GreedySubstringBetween(string s, string start, string end) 
             // eg. GreedySubstringBetween("abcdefgabcdefg", "b", "d") == "bcdefgabcd"
             var startIndex = input.IndexOf(start);
-            //var endIndex = input.LastIndexOf(end);
-            var endIndex = input.IndexOf(end, (input.IndexOf(end) + 1));
+            var endIndex = input.LastIndexOf(end);
             var length = endIndex - startIndex + 1;
             return input.Substring(startIndex, length);
         }

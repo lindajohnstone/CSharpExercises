@@ -93,12 +93,12 @@ namespace CSharpExercises.Tests
 
         [Theory]
         [InlineData("abcdefgabcdefg", "b", "d", "bcdefgabcd")]
-        [InlineData("abcdefgabcdefg", "d", "f", "defgabcdef")]
+        [InlineData("absfdavdafdefabbwddefg", "b", "d", "bsfdavdafdefabbwdd")]
         public void GreedySubstring_method(string input, string start, string end, string expected)
         {
             // string GreedySubstringBetween(string s, string start, string end) 
             // eg. GreedySubstringBetween("abcdefgabcdefg", "b", "d") == "bcdefgabcd"
-            
+            // GreedySubstringBetween("absfdavdafdefabbwddefg", "b", "d") == "bsfdavdafdefabbwdd"
             var result = Strings.GreedySubstringBetween(input, start, end);
             Assert.Equal(expected, result);
         }
