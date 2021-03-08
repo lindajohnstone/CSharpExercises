@@ -85,6 +85,17 @@ namespace CSharpExercises
             }
             return reversedInput;
         }
+
+        public static char[] ReverseIt(char[] input)
+        {
+            // var input = new[] { 'a', 'b', 'c' };
+            // var expected = new[] { 'c', 'b', 'a' };
+            var reversedCharArray = new char [input.Length];
+            reversedCharArray[0] = input[input.Length - 1];
+            reversedCharArray[1] = input[input.Length - 2];
+            reversedCharArray[2] = input[input.Length - 3];
+            return reversedCharArray;
+        }
         // "abcdefg".IndexOf("e", 1) = 4
         // "abcdefg".Substring(0, "abcdefg".IndexOf("e", 2))
         /* 
