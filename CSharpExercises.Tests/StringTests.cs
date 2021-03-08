@@ -116,10 +116,20 @@ namespace CSharpExercises.Tests
         [Theory]
         [InlineData("abc", "cba")]
         [InlineData("abcd", "dcba")]
+        [InlineData("quick brown", "nworb kciuq")]
         public void Reverse_string(string input, string expected)
         {
             var result = Strings.ReverseIt(input);
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void String_remove()
+        {
+            var input = "abcdefg";
+            Assert.Equal("abc", input.Remove(3));
+            Assert.Equal("abcfg", input.Remove(3, 2));
+            Assert.Equal("afg", input.Remove(1, 4));
         }
 
         [Fact]
