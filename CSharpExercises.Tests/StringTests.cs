@@ -113,11 +113,11 @@ namespace CSharpExercises.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void Reverse_string()
+        [Theory]
+        [InlineData("abc", "cba")]
+        [InlineData("abcd", "dcba")]
+        public void Reverse_string(string input, string expected)
         {
-            var input = "abc";
-            var expected = "cba";
             var result = Strings.ReverseIt(input);
             Assert.Equal(expected, result);
         }

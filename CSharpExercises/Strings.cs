@@ -77,11 +77,13 @@ namespace CSharpExercises
                 Remove
             */
             var reversedInput = "";
-            var offset = 1;
-            var piece1 = input.Substring(0, offset);
-            var piece2 = input.Substring(1, offset);
-            var piece3 = input.Substring(2, offset);
-            return String.Concat(piece3, piece2, piece1);
+            // 
+            for (int offset = 0; offset < input.Length; offset++)
+            {
+                var piece = input.Substring(offset, 1);
+                reversedInput = String.Concat(piece, reversedInput);
+            }
+            return reversedInput;
         }
         // "abcdefg".IndexOf("e", 1) = 4
         // "abcdefg".Substring(0, "abcdefg".IndexOf("e", 2))
