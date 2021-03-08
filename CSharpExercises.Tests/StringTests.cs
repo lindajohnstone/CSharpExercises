@@ -114,6 +114,15 @@ namespace CSharpExercises.Tests
         }
 
         [Fact]
+        public void Reverse_string()
+        {
+            var input = "abc";
+            var expected = "cba";
+            var result = Strings.ReverseIt(input);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void Substring_And_IndexOf()
         {
             var input = "//[***]\n1***2***3";
