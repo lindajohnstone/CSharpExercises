@@ -91,9 +91,12 @@ namespace CSharpExercises
             // var input = new[] { 'a', 'b', 'c' };
             // var expected = new[] { 'c', 'b', 'a' };
             var reversedCharArray = new char [input.Length];
-            reversedCharArray[0] = input[input.Length - 1];
-            reversedCharArray[1] = input[input.Length - 2];
-            reversedCharArray[2] = input[input.Length - 3];
+            var offset = input.Length - 1;
+            for (int index = 0; index < input.Length; index++)
+            {
+                reversedCharArray[index] = input[offset];
+                offset--;
+            }
             return reversedCharArray;
         }
         // "abcdefg".IndexOf("e", 1) = 4

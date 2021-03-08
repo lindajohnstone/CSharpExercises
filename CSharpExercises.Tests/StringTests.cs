@@ -123,11 +123,11 @@ namespace CSharpExercises.Tests
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void Reverse_char_array()
+        [Theory]
+        [InlineData(new[] { 'a', 'b', 'c' }, new[] { 'c', 'b', 'a' })]
+        [InlineData(new[] { 'a', 'b', 'c', 'a', 'b', 'c' }, new[] { 'c', 'b', 'a', 'c', 'b', 'a' })]
+        public void Reverse_char_array(char[] input, char[] expected)
         {
-            var input = new [] { 'a', 'b', 'c' };
-            var expected = new[] { 'c', 'b', 'a' };
             var result = Strings.ReverseIt(input);
             Assert.Equal(expected, result); 
         }
