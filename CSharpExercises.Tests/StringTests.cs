@@ -133,6 +133,24 @@ namespace CSharpExercises.Tests
         }
 
         [Fact]
+        public void Reverse_char_array_using_reverse()
+        {
+            var input = new[] { 'a', 'b', 'c' };
+            var expected = new[] { 'c', 'b', 'a' };
+            var result = Strings.ReverseItChar(input);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Reverse_list()
+        {
+            var listStrings = new List<string>() { "a", "b", "c" };
+            var expected = new List<string>() { "c", "b", "a" };
+            var result = Strings.RemoveIt(listStrings);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
         public void String_remove()
         {
             var input = "abcdefg";

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpExercises
 {
@@ -86,10 +87,28 @@ namespace CSharpExercises
             return reversedInput;
         }
 
+        public static string ReverseS(string input) 
+        {
+            if(input.Length == 0) return "";
+            else return ReverseS(input.Tail() + input.Head());
+        }
+        
+        // public static IEnumerable<char> ReverseA(IEnumerable<char> input) {
+        //     if(input.Count = 0) return new List<char>();
+        //     else {
+        //         var list = split(input);
+        //         return ReverseA(list.tail).Concat(new List<char>(){list.head});
+        //     }
+        // }
+
+        private static (char head, List<char> tail) split(List<char> list) {
+            var h = list[0];
+            list.RemoveAt(0);
+            return (h, list);
+        }
+
         public static char[] ReverseIt(char[] input)
         {
-            // [InlineData(new[] { 'a', 'b', 'c' }, new[] { 'c', 'b', 'a' })]
-            // [InlineData(new[] { 'a', 'b', 'c', 'a', 'b', 'c' }, new[] { 'c', 'b', 'a', 'c', 'b', 'a' })]
             var reversedCharArray = new char [input.Length];
             for (int index = 0; index < input.Length; index++)
             {
@@ -97,6 +116,18 @@ namespace CSharpExercises
                 reversedCharArray[index] = input[offset];
             }
             return reversedCharArray;
+        }
+
+        public static List<string> RemoveIt(List<string> listStrings)
+        {
+            listStrings.Reverse();
+            return listStrings;
+        }
+
+        public static char[] ReverseItChar(char[] input)
+        {
+            var reverseInput = input.Reverse();
+            return reverseInput.ToArray();
         }
         // "abcdefg".IndexOf("e", 1) = 4
         // "abcdefg".Substring(0, "abcdefg".IndexOf("e", 2))
