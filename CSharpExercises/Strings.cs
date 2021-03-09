@@ -88,14 +88,13 @@ namespace CSharpExercises
 
         public static char[] ReverseIt(char[] input)
         {
-            // var input = new[] { 'a', 'b', 'c' };
-            // var expected = new[] { 'c', 'b', 'a' };
+            // [InlineData(new[] { 'a', 'b', 'c' }, new[] { 'c', 'b', 'a' })]
+            // [InlineData(new[] { 'a', 'b', 'c', 'a', 'b', 'c' }, new[] { 'c', 'b', 'a', 'c', 'b', 'a' })]
             var reversedCharArray = new char [input.Length];
-            var offset = input.Length - 1;
             for (int index = 0; index < input.Length; index++)
             {
+                var offset = input.Length - index - 1; 
                 reversedCharArray[index] = input[offset];
-                offset--;
             }
             return reversedCharArray;
         }
