@@ -66,8 +66,7 @@ namespace CSharpExercises.Tests
         [Theory]
         [InlineData("abcdefgabefg", "b", "e", new[] { "bcde", "be" })]
         [InlineData("abcdefg", "b", "e", new[] { "bcde" })]
-        //[InlineData("abcdeedcba", "b", "d", new [] { "bcd", "dcb" })]
-        //    => ["bcd", "dcb"]
+        [InlineData("abcdeedcba", "b", "d", new [] { "bcd", "dcb" })]
         public void AllSlicesBetween_method_(string input, string start, string end, string[] expected)
         {
             var result = Strings.AllSlicesBetween(input, start, end);

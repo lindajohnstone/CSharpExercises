@@ -77,9 +77,9 @@ namespace CSharpExercises
 
         private static string FirstSliceBetween(string input, string start, string end)
         {
-            //if(input.IndexOf(start) > input.IndexOf(end))
+            if(input.IndexOf(start) > input.IndexOf(end))
             return SubstringBetween(input, start, end);
-            //else return SubstringBetween(input, end, start);
+            else return SubstringBetween(input, end, start);
         }
         
         public static string GreedySubstringBetween(string input, string start, string end)
