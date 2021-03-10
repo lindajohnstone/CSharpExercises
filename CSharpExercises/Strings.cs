@@ -37,23 +37,46 @@ namespace CSharpExercises
             // string[] AllSlicesBetween(string input, string start, string end) 
             // eg. AllSlicesBetween("abcdefgabefg", "b", "e") == ["bcde","be"]
             // try to re-use some of previous methods to make it more readable
-            var stringList = new List<string>();
-            var result = "";
-            var offset = 0;
-            while (true)
-            {
-                var startIndex = input.IndexOf(start, offset);
-                var endIndex = input.IndexOf(end, offset);
-                if (startIndex == -1 || endIndex == - 1) break;
-                var length =  endIndex - startIndex + 1;
-                result = input.Substring(input.IndexOf(SubstringFrom(input, start, offset)), length);
-                stringList.Add(result);
-                offset = endIndex + 1;
-            }
-            var inputArray = stringList.ToArray();
-            return inputArray;
+            // var stringList = new List<string>();
+            // var result = "";
+            // var offset = 0;
+            // while (true)
+            // {
+            //     var startIndex = input.IndexOf(start, offset);
+            //     var endIndex = input.IndexOf(end, offset);
+            //     if (startIndex == -1 || endIndex == - 1) break;
+            //     var length =  endIndex - startIndex + 1;
+            //     result = input.Substring(input.IndexOf(SubstringFrom(input, start, offset)), length);
+            //     stringList.Add(result);
+            //     offset = endIndex + 1;
+            // }
+            // var inputArray = stringList.ToArray();
+            // return inputArray;
+            return SliceAllBetween(input, start, end).ToArray();
         }
 
+        private static IEnumerable<string> SliceAllBetween(string input, string start, string end)
+        {
+            if(!ContainsAll(input, start, end)) return Enumerable.Empty<string>();
+            else return SliceAllBetween(SubstringAfter(input, end), start, end).Append(FirstSliceBetween(input, start, end)).Reverse();
+        }
+
+        private static bool ContainsAll(string input, string start, string end)
+        {
+            if (input.Contains(start) && input.Contains(end)) return true;
+            return false;
+        }
+
+        private static string SubstringAfter(string input, string cutPoint)
+        {
+            return input.Substring(input.IndexOf(cutPoint));
+        }
+
+        private static string FirstSliceBetween(string input, string start, string end)
+        {
+            return SubstringBetween(input, start, end);
+        }
+        
         public static string GreedySubstringBetween(string input, string start, string end)
         {
             // string GreedySubstringBetween(string s, string start, string end) 
@@ -118,10 +141,20 @@ namespace CSharpExercises
             return reversedCharArray;
         }
 
-        public static List<string> RemoveIt(List<string> listStrings)
+        public static List<string> ReverseIt(List<string> listStrings)
         {
             listStrings.Reverse();
             return listStrings;
+        }
+
+        public static IEnumerable<T> Reverse<T>(IEnumerable<T> list)
+        {
+            return list.Count() == 0 ? Enumerable.Empty<T>() : Reverse(list.Skip(1)).Append(list.First());
+        }
+
+        public static string Reverse(string s)
+        {
+            return s.Length == 0 ? "" : Reverse(s.Substring(1)) + s.First();
         }
 
         public static char[] ReverseItChar(char[] input)

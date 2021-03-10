@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
@@ -146,7 +147,25 @@ namespace CSharpExercises.Tests
         {
             var listStrings = new List<string>() { "a", "b", "c" };
             var expected = new List<string>() { "c", "b", "a" };
-            var result = Strings.RemoveIt(listStrings);
+            var result = Strings.ReverseIt(listStrings);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Reverse_IEnumerable()
+        {
+            IEnumerable<string> list = new List<string>() { "a", "b", "c" };
+            var expected = new List<string>() { "c", "b", "a" };
+            var result = Strings.Reverse(list);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void Reverse_string_version2()
+        {
+            var input = "abc";
+            var expected = "cba";
+            var result = Strings.Reverse(input);
             Assert.Equal(expected, result);
         }
 
