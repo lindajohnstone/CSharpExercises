@@ -24,14 +24,6 @@ namespace CSharpExercises
             return input.Substring(input.IndexOf(start, offset));
         }
 
-        public static string SubstringBetween(string input, string start, string end)
-        {
-            // SubstringBetween(string s, string start, string end) eg. SubstringBetween("ndianfq*(0YPO&", "*", "0") = "*(0"
-            var startIndex = input.IndexOf(start);
-            var length = input.IndexOf(end) - input.IndexOf(start) + 1;
-            return input.Substring(startIndex, length);
-        }
-
         public static string[] AllSlicesBetween(string input, string start, string end)
         {
             // string[] AllSlicesBetween(string input, string start, string end) 
@@ -77,9 +69,24 @@ namespace CSharpExercises
 
         private static string FirstSliceBetween(string input, string start, string end)
         {
+            //"abcdeedcba" "b" "d" => ["bcd", "dcb"]
             if(input.IndexOf(start) > input.IndexOf(end))
             return SubstringBetween(input, start, end);
-            else return SubstringBetween(input, end, start);
+            // need the substring from first instance of end
+            else return SubstringBetween(SubstringAfter(input, end), end, start);
+            // supposed to send input = input = "abcdeedcba" end = "d" start = "b" 
+            // length = -2
+        }
+
+        public static string SubstringBetween(string input, string start, string end)
+        {
+            // SubstringBetween(string s, string start, string end) eg. SubstringBetween("ndianfq*(0YPO&", "*", "0") = "*(0"
+            // [InlineData("abcdeedcba", "b", "d", new [] { "bcd", "dcb" })]
+            var startIndex = input.IndexOf(start);
+            // "abcdeedcba" "b" "d" => ["bcd", "dcb"]
+            // 
+            var length = input.IndexOf(end) - input.IndexOf(start) + 1;// TODO: error here - length = -2
+            return input.Substring(startIndex, length);
         }
         
         public static string GreedySubstringBetween(string input, string start, string end)
