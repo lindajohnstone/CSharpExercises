@@ -57,6 +57,9 @@ namespace CSharpExercises
 
         private static IEnumerable<string> SliceAllBetween(string input, string start, string end)
         {
+            // "" => []
+            // "abcde" "b" "d" => ["bcd"] | "e" "b" "d" => []
+            // "abcdeedcba" "b" "d" => ["bcd", "dcb"]
             if(!ContainsAll(input, start, end)) return Enumerable.Empty<string>();
             else return SliceAllBetween(SubstringAfter(input, end), start, end).Append(FirstSliceBetween(input, start, end)).Reverse();
         }
@@ -69,12 +72,14 @@ namespace CSharpExercises
 
         private static string SubstringAfter(string input, string cutPoint)
         {
-            return input.Substring(input.IndexOf(cutPoint));
+            return input.Substring(input.IndexOf(cutPoint) + 1);
         }
 
         private static string FirstSliceBetween(string input, string start, string end)
         {
+            //if(input.IndexOf(start) > input.IndexOf(end))
             return SubstringBetween(input, start, end);
+            //else return SubstringBetween(input, end, start);
         }
         
         public static string GreedySubstringBetween(string input, string start, string end)
