@@ -52,7 +52,7 @@ namespace CSharpExercises
             // "" => []
             // "abcde" "b" "d" => ["bcd"] | "e" "b" "d" => []
             // "abcdeedcba" "b" "d" => ["bcd", "dcb"]
-            if(!ContainsAll(input, start, end)) return Enumerable.Empty<string>();
+            if (!ContainsAll(input, start, end)) return Enumerable.Empty<string>();
             else return SliceAllBetween(SubstringAfter(input, end), start, end).Append(FirstSliceBetween(input, start, end)).Reverse();
         }
 
@@ -69,8 +69,8 @@ namespace CSharpExercises
         private static string FirstSliceBetween(string input, string start, string end)
         {
             //"abcdeedcba" "b" "d" => ["bcd", "dcb"]
-            if(input.IndexOf(start) < input.IndexOf(end))
-            return SubstringBetween(input, start, end);
+            if (input.IndexOf(start) < input.IndexOf(end))
+                return SubstringBetween(input, start, end);
             // need the substring from first instance of end
             else return SubstringBetween(input, end, start);
             // supposed to send input = input = "abcdeedcba" end = "d" start = "b" 
@@ -84,10 +84,10 @@ namespace CSharpExercises
             var startIndex = input.IndexOf(start);
             // "abcdeedcba" "b" "d" => ["bcd", "dcb"]
             // 
-            var length = input.IndexOf(end) - input.IndexOf(start) + 1;// TODO: error here - length = -2
+            var length = input.IndexOf(end) - input.IndexOf(start) + 1;
             return input.Substring(startIndex, length);
         }
-        
+
         public static string GreedySubstringBetween(string input, string start, string end)
         {
             // string GreedySubstringBetween(string s, string start, string end) 
@@ -121,12 +121,12 @@ namespace CSharpExercises
             return reversedInput;
         }
 
-        public static string ReverseS(string input) 
+        public static string ReverseS(string input)
         {
-            if(input.Length == 0) return "";
+            if (input.Length == 0) return "";
             else return ReverseS(input.Tail() + input.Head());
         }
-        
+
         // public static IEnumerable<char> ReverseA(IEnumerable<char> input) {
         //     if(input.Count = 0) return new List<char>();
         //     else {
@@ -135,7 +135,8 @@ namespace CSharpExercises
         //     }
         // }
 
-        private static (char head, List<char> tail) split(List<char> list) {
+        private static (char head, List<char> tail) split(List<char> list)
+        {
             var h = list[0];
             list.RemoveAt(0);
             return (h, list);
@@ -143,10 +144,10 @@ namespace CSharpExercises
 
         public static char[] ReverseIt(char[] input)
         {
-            var reversedCharArray = new char [input.Length];
+            var reversedCharArray = new char[input.Length];
             for (int index = 0; index < input.Length; index++)
             {
-                var offset = input.Length - index - 1; 
+                var offset = input.Length - index - 1;
                 reversedCharArray[index] = input[offset];
             }
             return reversedCharArray;
@@ -197,28 +198,94 @@ namespace CSharpExercises
 
         public static string ReplaceAll(string input, string target, string replacement)
         {
-            return input.Replace(target, replacement);
+            // can use substring & indexof
+            if (input.Length > 0)
+            {
+                if(!FindString()) return input;
+                else 
+                {
+                    RemoveTarget(input, target);
+                    InsertReplacement(input, replacement);
+                    Check(input, target);
+                    IsSpaceBefore(input, replacement);
+                    IsSpaceAfter(input, replacement);
+                }
+            }
+            return String.Empty;
         }
         /*
         check if string length is greater than  0
         no return empty string
         yes:
             find position target in input
-            remove target from input
-            insert replacemnet where target was
+            is target in string?
+            no:
+                return string
+            yes: 
+                remove target from string
+                insert replacement where target was
+                return string
             follow steps above to check if target still in string
+            is there a space after the target?
+            yes:
+                remove target from string
+                insert replacement where target was
+                return string
+            no: 
+                return string
+            follow steps above to check if target still in string
+            no: 
+                return string
+            is there a space before target
+            yes: 
+                remove target from string
+                insert replacement where target was
+                return string
+            no:
+                return string
+            follow steps above to check if target still in string
+            
             input = ""
 
             let input = "abcdefg", target = "cd", replacement = "a": 
                 string = "abefg", then "abaefg"
+                "cd" not in string
             
             let input = "a quick fox", target = "the", replacement = "a":
                 " quick fox"
                 "the quick fox"
+                "a" not in string
             
-            input = the quick fox
-            target = the
-            replacement = there
+            let input = "the quick brown fox jumped over the lazy dog", target = "the", replacement = "a": 
+                " quick brown fox jumped over the lazy dog"
+                "a quick brown fox jumped over the lazy dog"
+                target found in input
+                "a quick brown fox jumped over   lazy dog"
+                "a quick brown fox jumped over a lazy dog"
+                target not found 
+            
+            let input = "the quick fox", target = "the", replacement = "there"
+                " quick fox"
+                "there quick fox"
+                target found
+                    "re quick fox"
+                    "there quick fox"
+                    lines 233 - 234 loop indefinitely
+                ignore lines 239 - 241
+                no space after target
+                "there quick fox"
+            let input = "baby", target = "a", replacement = "after"
+                "bby"
+                "bafter"
+                target found
+                "bafter"
+                target found 
+                    continously loops
+                no space after target
+                no space before target
+                "bafter"
+            let input = "the quick fox", target = "a", replacement = "no"
+                "the quick fox"
         */
-    }  
+    }
 }
