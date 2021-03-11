@@ -58,8 +58,7 @@ namespace CSharpExercises
 
         private static bool ContainsAll(string input, string start, string end)
         {
-            if (input.Contains(start) && input.Contains(end)) return true;
-            return false;
+            return input.Contains(start) && input.Contains(end);
         }
 
         private static string SubstringAfter(string input, string cutPoint)
@@ -70,12 +69,12 @@ namespace CSharpExercises
         private static string FirstSliceBetween(string input, string start, string end)
         {
             //"abcdeedcba" "b" "d" => ["bcd", "dcb"]
-            if(input.IndexOf(start) > input.IndexOf(end))
+            if(input.IndexOf(start) < input.IndexOf(end))
             return SubstringBetween(input, start, end);
             // need the substring from first instance of end
-            else return SubstringBetween(SubstringAfter(input, end), end, start);
+            else return SubstringBetween(input, end, start);
             // supposed to send input = input = "abcdeedcba" end = "d" start = "b" 
-            // length = -2
+            // length = -2 for second instance of 'end'
         }
 
         public static string SubstringBetween(string input, string start, string end)
@@ -195,5 +194,31 @@ namespace CSharpExercises
         // = (220 + 5)/5
         // = 225/5
         // = 45
+
+        public static string ReplaceAll(string input, string target, string replacement)
+        {
+            return input.Replace(target, replacement);
+        }
+        /*
+        check if string length is greater than  0
+        no return empty string
+        yes:
+            find position target in input
+            remove target from input
+            insert replacemnet where target was
+            follow steps above to check if target still in string
+            input = ""
+
+            let input = "abcdefg", target = "cd", replacement = "a": 
+                string = "abefg", then "abaefg"
+            
+            let input = "a quick fox", target = "the", replacement = "a":
+                " quick fox"
+                "the quick fox"
+            
+            input = the quick fox
+            target = the
+            replacement = there
+        */
     }  
 }
