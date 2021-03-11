@@ -298,5 +298,22 @@ Another line";
             Assert.Equal(2, input.IndexOf("e"));
             Assert.Equal(24, input.IndexOf("e", 4));
         }
+        [Fact]
+        public void Find_string()
+        {
+            var input = "abcdefg";
+            var expected = "cd";
+            var result = input.Substring(input.IndexOf("cd"), "cd".Length);
+            Assert.Equal(expected, result);
+        }
+        [Fact]
+        public void Remove_target()
+        {
+            var input = "abcdefg";
+            var target = "cd";
+            var expected = "abefg";
+            var result = input.Replace(target, "");
+            Assert.Equal(expected, result);
+        }
     }
 }

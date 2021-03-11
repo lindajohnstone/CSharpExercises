@@ -52,8 +52,17 @@ namespace CSharpExercises
             // "" => []
             // "abcde" "b" "d" => ["bcd"] | "e" "b" "d" => []
             // "abcdeedcba" "b" "d" => ["bcd", "dcb"]
-            if (!ContainsAll(input, start, end)) return Enumerable.Empty<string>();
-            else return SliceAllBetween(SubstringAfter(input, end), start, end).Append(FirstSliceBetween(input, start, end)).Reverse();
+            // if (!ContainsAll(input, start, end)) return Enumerable.Empty<string>();
+            // else return SliceAllBetween(SubstringAfter(input, end), start, end).Append(FirstSliceBetween(input, start, end)).Reverse();
+
+            var result = Enumerable.Empty<string>();
+            while(ContainsAll(input, start, end))
+            {
+                var aSlice = FirstSliceBetween(input, start, end);
+                result = result.Append(aSlice);
+                input = SubstringAfter(input, end);
+            }
+            return result;
         }
 
         private static bool ContainsAll(string input, string start, string end)
@@ -213,79 +222,110 @@ namespace CSharpExercises
             }
             return String.Empty;
         }
-        /*
-        check if string length is greater than  0
-        no return empty string
-        yes:
-            find position target in input
-            is target in string?
-            no:
-                return string
-            yes: 
-                remove target from string
-                insert replacement where target was
-                return string
-            follow steps above to check if target still in string
-            is there a space after the target?
-            yes:
-                remove target from string
-                insert replacement where target was
-                return string
-            no: 
-                return string
-            follow steps above to check if target still in string
-            no: 
-                return string
-            is there a space before target
-            yes: 
-                remove target from string
-                insert replacement where target was
-                return string
-            no:
-                return string
-            follow steps above to check if target still in string
-            
-            input = ""
 
-            let input = "abcdefg", target = "cd", replacement = "a": 
-                string = "abefg", then "abaefg"
-                "cd" not in string
-            
-            let input = "a quick fox", target = "the", replacement = "a":
-                " quick fox"
-                "the quick fox"
-                "a" not in string
-            
-            let input = "the quick brown fox jumped over the lazy dog", target = "the", replacement = "a": 
-                " quick brown fox jumped over the lazy dog"
-                "a quick brown fox jumped over the lazy dog"
-                target found in input
-                "a quick brown fox jumped over   lazy dog"
-                "a quick brown fox jumped over a lazy dog"
-                target not found 
-            
-            let input = "the quick fox", target = "the", replacement = "there"
-                " quick fox"
-                "there quick fox"
-                target found
-                    "re quick fox"
-                    "there quick fox"
-                    lines 233 - 234 loop indefinitely
-                ignore lines 239 - 241
-                no space after target
-                "there quick fox"
-            let input = "baby", target = "a", replacement = "after"
-                "bby"
-                "bafter"
-                target found
-                "bafter"
-                target found 
-                    continously loops
-                no space after target
-                no space before target
-                "bafter"
-            let input = "the quick fox", target = "a", replacement = "no"
-                "the quick fox"
-        */
+        private static void IsSpaceAfter(string input, string replacement)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void IsSpaceBefore(string input, string replacement)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void Check(string input, string target)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void InsertReplacement(string input, string replacement)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void RemoveTarget(string input, string target)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static bool FindString()
+        {
+            throw new NotImplementedException();
+        }
+        /*
+check if string length is greater than  0
+no return empty string
+yes:
+   find position target in input
+   is target in string?
+   no:
+       return string
+   yes: 
+       remove target from string
+       ?? keep indexof as point of replacement
+       insert replacement where target was
+       return string
+   follow steps above to check if target still in string
+   is there a space after the target?
+   yes:
+       remove target from string
+       insert replacement where target was
+       return string
+   no: 
+       return string
+   follow steps above to check if target still in string
+   no: 
+       return string
+   is there a space before target
+   yes: 
+       remove target from string
+       insert replacement where target was
+       return string
+   no:
+       return string
+   follow steps above to check if target still in string
+
+   input = ""
+
+   let input = "abcdefg", target = "cd", replacement = "a": 
+       string = "abefg", then "abaefg"
+       "cd" not in string
+
+   let input = "a quick fox", target = "the", replacement = "a":
+       " quick fox"
+       "the quick fox"
+       "a" not in string
+
+   let input = "the quick brown fox jumped over the lazy dog", target = "the", replacement = "a": 
+       " quick brown fox jumped over the lazy dog"
+       "a quick brown fox jumped over the lazy dog"
+       target found in input
+       "a quick brown fox jumped over   lazy dog"
+       "a quick brown fox jumped over a lazy dog"
+       target not found 
+
+   let input = "the quick fox", target = "the", replacement = "there"
+       " quick fox"
+       "there quick fox"
+       target found
+           "re quick fox"
+           "there quick fox"
+           lines 233 - 234 loop indefinitely
+       ignore lines 239 - 241
+       no space after target
+       "there quick fox"
+   let input = "baby", target = "a", replacement = "after"
+       "bby"
+       "bafter"
+       target found
+       "bafter"
+       target found 
+           continously loops
+       no space after target
+       no space before target
+       "bafter"
+   let input = "the quick fox", target = "a", replacement = "no"
+       "the quick fox"
+*/
     }
 }
