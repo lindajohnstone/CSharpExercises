@@ -18,10 +18,10 @@ namespace CSharpExercises
             return input.Substring(0, input.IndexOf(end));
         }
 
-        public static string SubstringFrom(string input, string start, int offset)
+        public static string SubstringFrom(string input, string start, int count)
         {
             // SubstringFrom(string s, string start) eg. SubstringFrom("ndianfq*(0YPO&", "*") = "*(0YPO&"
-            return input.Substring(input.IndexOf(start, offset));
+            return input.Substring(input.IndexOf(start, count));
         }
 
         public static string[] AllSlicesBetween(string input, string start, string end)
@@ -77,13 +77,8 @@ namespace CSharpExercises
 
         private static string FirstSliceBetween(string input, string start, string end)
         {
-            //"abcdeedcba" "b" "d" => ["bcd", "dcb"]
-            if (input.IndexOf(start) < input.IndexOf(end))
-                return SubstringBetween(input, start, end);
-            // need the substring from first instance of end
-            else return SubstringBetween(input, end, start);
-            // supposed to send input = input = "abcdeedcba" end = "d" start = "b" 
-            // length = -2 for second instance of 'end'
+            if (input.IndexOf(start) >= input.IndexOf(end)) return SubstringBetween(input, end, start);
+            else return SubstringBetween(input, start, end);
         }
 
         public static string SubstringBetween(string input, string start, string end)
@@ -135,14 +130,6 @@ namespace CSharpExercises
             if (input.Length == 0) return "";
             else return ReverseS(input.Tail() + input.Head());
         }
-
-        // public static IEnumerable<char> ReverseA(IEnumerable<char> input) {
-        //     if(input.Count = 0) return new List<char>();
-        //     else {
-        //         var list = split(input);
-        //         return ReverseA(list.tail).Concat(new List<char>(){list.head});
-        //     }
-        // }
 
         private static (char head, List<char> tail) split(List<char> list)
         {
@@ -208,19 +195,68 @@ namespace CSharpExercises
         public static string ReplaceAll(string input, string target, string replacement)
         {
             // can use substring & indexof
+            // find first instance of target
+            // substringuntil or substring to target
+            // substring from target for target.length
+            // substring after target to end of string
+            // check substringafter for another instance of target
+            // repeat until no more instances of target in string
+            var result = String.Empty;
             if (input.Length > 0)
             {
-                if(!FindString()) return input;
-                else 
+                while(ContainsTarget(input, target)) 
                 {
-                    RemoveTarget(input, target);
-                    InsertReplacement(input, replacement);
-                    Check(input, target);
-                    IsSpaceBefore(input, replacement);
-                    IsSpaceAfter(input, replacement);
+                    var index = FindIndex(input, target);
+                    result = RemoveTarget(input, target);
+                    result = InsertReplacement(result, index, replacement);
+                    //TODO: is there another instance of target - how to find
+                    //input = SubstringFrom(result, target, target.Length);
+                    // IsSpaceBefore(input, replacement);
+                    // IsSpaceAfter(input, replacement);
+                    return result;
                 }
+                return input;
             }
-            return String.Empty;
+            // while(ContainsTarget(input, target))
+            // {
+            //     var index = FindIndex(input, target);
+            //     RemoveTarget(input, target);
+            //     // InsertReplacement(input, replacement, );
+            //     // IsSpaceBefore(input, replacement);
+            //     // IsSpaceAfter(input, replacement);
+                
+            // }
+            return result;
+            // var result = Enumerable.Empty<string>();
+            // while (ContainsAll(input, start, end))
+            // {
+            //     var aSlice = FirstSliceBetween(input, start, end);
+            //     result = result.Append(aSlice);
+            //     input = SubstringAfter(input, end);
+            // }
+            // return result;
+        }
+
+        private static bool ContainsTarget(string input, string target)
+        {
+            return input.Contains(target);
+        }
+
+        private static int FindIndex(string input, string target)
+        {
+            return input.IndexOf(target);
+        }
+
+        private static string RemoveTarget(string input, string target)
+        {
+
+            // use substringbetween?
+            return input.Replace(target, String.Empty);
+        }
+
+        private static string InsertReplacement(string input, int index, string replacement)
+        {
+            return input.Insert(index, replacement);
         }
 
         private static void IsSpaceAfter(string input, string replacement)
@@ -233,25 +269,14 @@ namespace CSharpExercises
             throw new NotImplementedException();
         }
 
-        private static void Check(string input, string target)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        private static void InsertReplacement(string input, string replacement)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        private static void RemoveTarget(string input, string target)
-        {
-            throw new NotImplementedException();
-        }
+        
 
-        private static bool FindString()
-        {
-            throw new NotImplementedException();
-        }
+        
+
         /*
 check if string length is greater than  0
 no return empty string

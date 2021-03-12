@@ -17,24 +17,24 @@ namespace CSharpExercises.Tests
             Assert.Equal(expected, result);
         }
         
-        [Fact]
-        public void StringUntil_method()
+        [Theory]
+        [InlineData("ndianfq*(0YPO&", "*", "ndianfq")]
+        [InlineData("the quick brown fox jumped over the lazy dog", "the", "")]
+        public void StringUntil_method(string input, string target, string expected)
         {
             // SubstringUntil(string s, string target) eg. SubstringUntil("ndianfq*(0YPO&", "*") = "ndianfq"
-            var expected = "ndianfq";
-            var target = "*";
-            var result = Strings.SubstringUntil("ndianfq*(0YPO&", target);
+            var result = Strings.SubstringUntil(input, target);
             Assert.Equal(expected, result);
         }
 
-        [Fact]
-        public void StringFrom_method()
+        [Theory]
+        [InlineData("ndianfq*(0YPO&", "*", 0, "*(0YPO&")]
+        [InlineData("a quick brown fox jumped over the lazy dog", "the", 0, "the lazy dog")]
+        [InlineData("a quick brown fox jumped over the lazy dog", "the", 3, "the lazy dog")]
+        public void StringFrom_method(string input, string target, int offset, string expected)
         {
             // SubstringFrom(string s, string start) eg. SubstringFrom("ndianfq*(0YPO&", "*") = "*(0YPO&"
-            var expected = "*(0YPO&";
-            var target = "*";
-            var offset = 0;
-            var result = Strings.SubstringFrom("ndianfq*(0YPO&", target, offset);
+            var result = Strings.SubstringFrom(input, target, offset);
             Assert.Equal(expected, result);
         }
 
@@ -298,14 +298,27 @@ Another line";
             Assert.Equal(2, input.IndexOf("e"));
             Assert.Equal(24, input.IndexOf("e", 4));
         }
+
+        [Fact]
+        public void Find_index()
+        {
+            var input = "abcdefg";
+            var expected = 2;
+            var result = input.IndexOf("cd");
+            Assert.Equal(expected, result); 
+        }
+
         [Fact]
         public void Find_string()
         {
             var input = "abcdefg";
             var expected = "cd";
-            var result = input.Substring(input.IndexOf("cd"), "cd".Length);
+            var index = input.IndexOf("cd");
+            var result = input.Substring(index, "cd".Length);
+            Assert.Equal(2, index);
             Assert.Equal(expected, result);
         }
+
         [Fact]
         public void Remove_target()
         {
@@ -314,6 +327,30 @@ Another line";
             var expected = "abefg";
             var result = input.Replace(target, "");
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("", "", "", "")]
+        [InlineData("abcdefg", "cd", "a", "abaefg")]
+        [InlineData("the quick fox", "the", "a", "a quick fox")]
+        [InlineData("the quick fox", "the", "there", "there quick fox")]
+        [InlineData("baby", "a", "after", "bafterby")]
+        [InlineData("the quick brown fox jumped over the lazy dog", "the", "a", "a quick brown fox jumped over a lazy dog")] // TODO: test fails
+        public void Replace_all(string input, string target, string replacement, string expected)
+        {
+            var result = Strings.ReplaceAll(input, target, replacement);
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void String_insert()
+        {
+            var input = "aaabbb";
+            Assert.Equal("aaa bbb", input.Insert(3, " "));
+            Assert.Equal("aaacbbb", input.Insert(3, "c"));
+            Assert.Equal("aaa bbb", input.Insert(input.IndexOf("b"), " "));
+            Assert.Equal("aaa bbb", input.Insert(input.IndexOf("bbb"), " "));
+            Assert.Equal("aaacbbb", input.Insert(input.IndexOf("bbb"), "c"));
         }
     }
 }
