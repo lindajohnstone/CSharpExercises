@@ -202,35 +202,25 @@ namespace CSharpExercises
             // check substringafter for another instance of target
             // repeat until no more instances of target in string
             var result = input;
-            if (result.Length == 0) return String.Empty;
+            if (result == String.Empty) return String.Empty;
             else
             {
-                while(ContainsTarget(result, target)) 
+                while (ContainsTarget(input, target))
                 {
-                    var index = FindIndex(result, target);
-                    result = RemoveTarget(result, target);
-                    result = InsertReplacement(result, index, replacement);
-                    //TODO: is there another instance of target - how to find
-                    //input = SubstringFrom(result, target, target.Length);
-                    //IsSpaceBefore(input, replacement);
-                    //IsSpaceAfter(input, replacement);
-                    
-                    /*
-                    "the quick brown fox jumped over the lazy dog"
-                    target = "the"
-                    indexof "the" = 0
-                    remove target
-                    " quick brown fox jumped over the lazy dog"
-                    insert replacement
-                    result = "a quick brown fox jumped over the lazy dog"
-                    input = result
-                    input = "a quick brown fox jumped over the lazy dog"
-
-                    */
-                    if(replacement.Contains(target)) break;
+                    var inputArray = input.Split(target);
+                    for (int i = 0; i < inputArray.Length; i++)
+                    {
+                        var index = FindIndex(input, target);
+                        result = RemoveTarget(result, target);
+                        result = InsertReplacement(result, index, replacement);
+                        String.Concat(result);
+                    }
+                    return result;
                 }
                 return result;
             }
+            
+
             // while(ContainsTarget(input, target))
             // {
             //     var index = FindIndex(input, target);
@@ -238,7 +228,7 @@ namespace CSharpExercises
             //     // InsertReplacement(input, replacement, );
             //     // IsSpaceBefore(input, replacement);
             //     // IsSpaceAfter(input, replacement);
-                
+
             // }
             // var result = Enumerable.Empty<string>();
             // while (ContainsAll(input, start, end))
