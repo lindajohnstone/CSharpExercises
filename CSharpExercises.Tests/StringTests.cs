@@ -31,6 +31,8 @@ namespace CSharpExercises.Tests
         [InlineData("ndianfq*(0YPO&", "*", 0, "*(0YPO&")]
         [InlineData("a quick brown fox jumped over the lazy dog", "the", 0, "the lazy dog")]
         [InlineData("a quick brown fox jumped over the lazy dog", "the", 3, "the lazy dog")]
+        [InlineData("the quick brown fox jumped over the lazy dog", "the", 3, "the lazy dog")]
+        [InlineData("the quick brown fox jumped over the lazy dog", "the", 0, "the quick brown fox jumped over the lazy dog")]
         public void StringFrom_method(string input, string target, int offset, string expected)
         {
             // SubstringFrom(string s, string start) eg. SubstringFrom("ndianfq*(0YPO&", "*") = "*(0YPO&"

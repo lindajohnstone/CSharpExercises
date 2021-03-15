@@ -201,19 +201,19 @@ namespace CSharpExercises
             // substring after target to end of string
             // check substringafter for another instance of target
             // repeat until no more instances of target in string
-            var result = String.Empty;
-            if (input.Length > 0)
+            var result = input;
+            if (result.Length == 0) return String.Empty;
+            else
             {
-                while(ContainsTarget(input, target)) 
+                while(ContainsTarget(result, target)) 
                 {
-                    var index = FindIndex(input, target);
-                    result = RemoveTarget(input, target);
+                    var index = FindIndex(result, target);
+                    result = RemoveTarget(result, target);
                     result = InsertReplacement(result, index, replacement);
                     //TODO: is there another instance of target - how to find
                     //input = SubstringFrom(result, target, target.Length);
                     //IsSpaceBefore(input, replacement);
                     //IsSpaceAfter(input, replacement);
-                    input = result;
                     
                     /*
                     "the quick brown fox jumped over the lazy dog"
@@ -229,7 +229,7 @@ namespace CSharpExercises
                     */
                     if(replacement.Contains(target)) break;
                 }
-                return input;
+                return result;
             }
             // while(ContainsTarget(input, target))
             // {
@@ -240,7 +240,6 @@ namespace CSharpExercises
             //     // IsSpaceAfter(input, replacement);
                 
             // }
-            return result;
             // var result = Enumerable.Empty<string>();
             // while (ContainsAll(input, start, end))
             // {
