@@ -330,11 +330,11 @@ Another line";
         }
 
         [Theory]
-        [InlineData("", "", "", "")]
-        [InlineData("abcdefg", "cd", "a", "abaefg")]
-        [InlineData("the quick fox", "the", "a", "a quick fox")]
-        [InlineData("the quick fox", "the", "there", "there quick fox")]
-        [InlineData("baby", "a", "after", "bafterby")]
+        //[InlineData("", "", "", "")]
+        //[InlineData("abcdefg", "cd", "a", "abaefg")]
+        //[InlineData("the quick fox", "the", "a", "a quick fox")]
+        // [InlineData("the quick fox", "the", "there", "there quick fox")]
+        // [InlineData("baby", "a", "after", "bafterby")]
         [InlineData("the quick brown fox jumped over the lazy dog", "the", "a", "a quick brown fox jumped over a lazy dog")] // TODO: test fails
         public void Replace_all(string input, string target, string replacement, string expected)
         {

@@ -211,9 +211,23 @@ namespace CSharpExercises
                     result = InsertReplacement(result, index, replacement);
                     //TODO: is there another instance of target - how to find
                     //input = SubstringFrom(result, target, target.Length);
-                    // IsSpaceBefore(input, replacement);
-                    // IsSpaceAfter(input, replacement);
-                    return result;
+                    //IsSpaceBefore(input, replacement);
+                    //IsSpaceAfter(input, replacement);
+                    input = result;
+                    
+                    /*
+                    "the quick brown fox jumped over the lazy dog"
+                    target = "the"
+                    indexof "the" = 0
+                    remove target
+                    " quick brown fox jumped over the lazy dog"
+                    insert replacement
+                    result = "a quick brown fox jumped over the lazy dog"
+                    input = result
+                    input = "a quick brown fox jumped over the lazy dog"
+
+                    */
+                    if(replacement.Contains(target)) break;
                 }
                 return input;
             }
@@ -258,24 +272,6 @@ namespace CSharpExercises
         {
             return input.Insert(index, replacement);
         }
-
-        private static void IsSpaceAfter(string input, string replacement)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void IsSpaceBefore(string input, string replacement)
-        {
-            throw new NotImplementedException();
-        }
-
-        
-
-        
-
-        
-
-        
 
         /*
 check if string length is greater than  0
