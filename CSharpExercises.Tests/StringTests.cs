@@ -332,18 +332,18 @@ Another line";
         }
 
         [Theory]
-        //[InlineData("", "", "", "")]
-        //[InlineData("abcdefg", "cd", "a", "abaefg")]
-        //[InlineData("the quick fox", "the", "a", "a quick fox")]
-        // [InlineData("the quick fox", "the", "there", "there quick fox")]
-        // [InlineData("baby", "a", "after", "bafterby")]
+        [InlineData("", "", "", "")]
+        [InlineData("abcdefg", "cd", "a", "abaefg")]
+        [InlineData("the quick fox", "the", "a", "a quick fox")]
+        [InlineData("the quick fox", "the", "there", "there quick fox")]
+        [InlineData("baby", "a", "after", "bafterby")]
         [InlineData("the quick brown fox jumped over the lazy dog", "the", "a", "a quick brown fox jumped over a lazy dog")] // TODO: test fails
         public void Replace_all(string input, string target, string replacement, string expected)
         {
             var result = Strings.ReplaceAll(input, target, replacement);
             Assert.Equal(expected, result);
         }
-
+        
         [Fact]
         public void String_insert()
         {
@@ -353,6 +353,13 @@ Another line";
             Assert.Equal("aaa bbb", input.Insert(input.IndexOf("b"), " "));
             Assert.Equal("aaa bbb", input.Insert(input.IndexOf("bbb"), " "));
             Assert.Equal("aaacbbb", input.Insert(input.IndexOf("bbb"), "c"));
+        }
+        [Fact]
+        public void testName()
+        {
+            // find index and count (use length??) of target so can use different substring methods
+            var input = "the quick fox jumped over the lazy dog";
+            
         }
     }
 }

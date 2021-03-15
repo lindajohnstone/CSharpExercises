@@ -87,7 +87,6 @@ namespace CSharpExercises
             // [InlineData("abcdeedcba", "b", "d", new [] { "bcd", "dcb" })]
             var startIndex = input.IndexOf(start);
             // "abcdeedcba" "b" "d" => ["bcd", "dcb"]
-            // 
             var length = input.IndexOf(end) - input.IndexOf(start) + 1;
             return input.Substring(startIndex, length);
         }
@@ -105,18 +104,7 @@ namespace CSharpExercises
 
         public static string ReverseIt(string input)
         {
-            /*
-                Substring
-                Replace
-                Contains
-                Split
-                Concat
-                Join
-                ToCharArray
-                Remove
-            */
             var reversedInput = "";
-            // 
             for (int offset = 0; offset < input.Length; offset++)
             {
                 var piece = input.Substring(offset, 1);
@@ -170,74 +158,39 @@ namespace CSharpExercises
             var reverseInput = input.Reverse();
             return reverseInput.ToArray();
         }
-        // "abcdefg".IndexOf("e", 1) = 4
-        // "abcdefg".Substring(0, "abcdefg".IndexOf("e", 2))
-        /* 
-        Steps:
-        "abcdefg".Substring(a, b)
-        a = 0
-        b = "abcdefg".IndexOf("e",2)  = 4
-        "abcdefg".Substring(0, 4) = "abcd"
-        */
-        // a = 1, b = 2, c = 3
-        // (a + b) * (b + c) = 3 * 5 = 15
-        // f = a * b
-        // a = 1, b = 2
-        // f = 1 * 2 = 2
-        // a = 2, b = 4
-        // f = 2 * 4 = 8
-
-        // (20 * 11 + 5)/5
-        // = (220 + 5)/5
-        // = 225/5
-        // = 45
 
         public static string ReplaceAll(string input, string target, string replacement)
         {
-            // can use substring & indexof
-            // find first instance of target
-            // substringuntil or substring to target
-            // substring from target for target.length
-            // substring after target to end of string
-            // check substringafter for another instance of target
-            // repeat until no more instances of target in string
-            var result = input;
-            if (result == String.Empty) return String.Empty;
-            else
+            var offset = 0;
+            var result = "";
+            while (offset < input.Length)
             {
-                while (ContainsTarget(input, target))
+                if (IsSubstringMatch(input, offset, target))
                 {
-                    var inputArray = input.Split(target);
-                    for (int i = 0; i < inputArray.Length; i++)
-                    {
-                        var index = FindIndex(input, target);
-                        result = RemoveTarget(result, target);
-                        result = InsertReplacement(result, index, replacement);
-                        String.Concat(result);
-                    }
-                    return result;
+                    result += replacement;
+                    offset += target.Length;
                 }
-                return result;
+                else
+                {
+                    result += input.Substring(offset, 1);
+                    offset++;
+                }
             }
-            
+            return result;
+        }
 
-            // while(ContainsTarget(input, target))
-            // {
-            //     var index = FindIndex(input, target);
-            //     RemoveTarget(input, target);
-            //     // InsertReplacement(input, replacement, );
-            //     // IsSpaceBefore(input, replacement);
-            //     // IsSpaceAfter(input, replacement);
-
-            // }
-            // var result = Enumerable.Empty<string>();
-            // while (ContainsAll(input, start, end))
-            // {
-            //     var aSlice = FirstSliceBetween(input, start, end);
-            //     result = result.Append(aSlice);
-            //     input = SubstringAfter(input, end);
-            // }
-            // return result;
+        private static bool IsSubstringMatch(string input, int offset, string target)
+        {
+            // check if the offset plus target length is less than the input length
+            if (offset + target.Length <= input.Length) 
+            {
+                // does the substring match the target
+                if (input.Substring(offset, target.Length) == target)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static bool ContainsTarget(string input, string target)
@@ -261,6 +214,9 @@ namespace CSharpExercises
         {
             return input.Insert(index, replacement);
         }
+
+        
+
 
         /*
 check if string length is greater than  0
